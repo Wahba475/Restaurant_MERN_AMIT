@@ -1,48 +1,66 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate, useLocation, Link } from 'react-router-dom'
+import toast from 'react-hot-toast'
 import wahbaLogo from '../static/logo.png'
 
 function Navbar() {
-  const [activePath, setActivePath] = useState('/')
+  const navigate = useNavigate()
+  const location = useLocation()
+  const activePath = location.pathname
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [cartItemCount, setCartItemCount] = useState(3) // TODO: real cart count
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setActivePath(window.location.pathname || '/')
-    }
-  }, [])
+    const token = localStorage.getItem('token')
+    setIsLoggedIn(!!token) 
+    // bet4oof law el token mawgoda wla la ..!! means change it into boolean
+  }, [location])
 
   const links = [
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },
     { label: 'Menu', href: '/menu' },
-    { label: 'Pages', href: '/pages' },
-    { label: 'Contact', href: '/contact' },
   ]
 
-  return (
-    <nav className="flex items-center justify-between px-12 py-5 bg-white border-b border-gray-100">
+  const handleAuthClick = () => {
+    if (isLoggedIn) {
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+      setIsLoggedIn(false)
+      toast.success('Logged out successfully!')
+      navigate('/')
+    } else {
+      navigate('/login')
+    }
+  }
 
-      {/* Logo ONLY */}
-      <div className="cursor-pointer group flex items-center">
-        <img
-          src={wahbaLogo}
-          alt="Wahba"
-          className="h-15 w-auto transition-transform duration-300 ease-out group-hover:-translate-y-1"
-        />
+  return (
+    <nav className="flex items-center px-12 py-5 bg-white border-b border-gray-100">
+
+      {/* LEFT — Logo */}
+      <div className="flex-1 flex items-center">
+        <Link to="/" className="group flex items-center">
+          <img
+            src={wahbaLogo}
+            alt="Wahba"
+            className="h-12 w-auto transition-transform duration-300 group-hover:-translate-y-1"
+          />
+        </Link>
       </div>
 
-      {/* Center Links */}
-      <div className="hidden md:flex items-center gap-6">
+      {/* CENTER — Navigation */}
+      <div className="flex-1 hidden md:flex items-center justify-center gap-6">
         {links.map(link => {
           const isActive = activePath === link.href
 
           return (
-            <a
+            <button
               key={link.href}
-              href={link.href}
-              onClick={() => setActivePath(link.href)}
+              onClick={() => navigate(link.href)}
               className={`relative px-4 py-1.5 font-medium transition-colors duration-200 ${
                 isActive
-                  ? 'text-[#2C2F24]'
+                  ? 'text-[#2C2F24] font-semibold'
                   : 'text-[#474747] hover:text-[#AD343E]'
               }`}
             >
@@ -52,18 +70,61 @@ function Navbar() {
                 }`}
               />
               <span className="relative z-10">{link.label}</span>
-            </a>
+            </button>
           )
         })}
       </div>
 
-      {/* CTA Button */}
-      <div className="flex items-center">
-        <button className="border-2 border-[#182226] text-[#182226] px-6 py-2 rounded-full font-bold transition-all duration-300 ease-out hover:bg-[#182226] hover:text-white hover:-translate-y-1">
+      {/* RIGHT — Actions */}
+      <div className="flex-1 flex items-center justify-end gap-4">
+
+        {/* Cart */}
+        <button
+          onClick={() => navigate('/cart')}
+          className="relative p-2 hover:bg-gray-100 rounded-full transition-colors"
+          title="Cart"
+        >
+          <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+
+          {cartItemCount > 0 && (
+            <span className="absolute -top-1 -right-1 bg-black text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+              {cartItemCount}
+            </span>
+          )}
+        </button>
+
+        {/* Admin */}
+        {isLoggedIn && (
+          <button
+            onClick={() => navigate('/admin')}
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+            title="Admin"
+          >
+            <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </button>
+        )}
+
+        {/* Book Table */}
+        <button className="border-2 border-[#182226] text-[#182226] px-5 py-2 rounded-full font-bold transition-all hover:bg-[#182226] hover:text-white hover:-translate-y-1">
           Book A Table
         </button>
-      </div>
 
+        {/* Login / Logout */}
+        <button
+          onClick={handleAuthClick}
+          className="border-2 border-[#AD343E] text-[#AD343E] px-5 py-2 rounded-full font-bold transition-all hover:bg-[#AD343E] hover:text-white hover:-translate-y-1"
+        >
+          {isLoggedIn ? 'LOGOUT' : 'LOGIN'}
+        </button>
+      </div>
     </nav>
   )
 }

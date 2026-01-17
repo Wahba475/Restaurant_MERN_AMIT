@@ -1,9 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Coffee, Utensils, Wine, Cookie } from 'lucide-react';
 
 function Menu() {
+  const navigate = useNavigate();
+  
   const handleExploreMenu = (category) => {
-    console.log(`Navigating to ${category} menu`);
+    navigate(`/menu?category=${category}`);
   };
 
   const menuItems = [
