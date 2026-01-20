@@ -6,7 +6,13 @@ const dotenv = require('dotenv');
 const { connectDB } = require('./db/db_connection');
 const menuRouter = require('./Routers/Menue_Router');
 const userRouter = require('./Routers/User_Router');
+const cartRouter = require('./Routers/Cart_Router');
+const orderRouter = require("./Routers/Order_Router");
+const stripeRouter = require('./Routers/Stripe_Router');
+const stripeWebhookRouter = require('./Routers/stripeWebhookRoutes');
 dotenv.config();
+
+app.use('/api/stripe/webhook', stripeWebhookRouter);
 
 app.use(express.json());
 
@@ -14,6 +20,9 @@ connectDB();
 app.use(cors());
 app.use('/api/menu', menuRouter);
 app.use('/api/user', userRouter);
+app.use('/api/cart', cartRouter);
+app.use("/api/orders", orderRouter);
+app.use('/api/stripe', stripeRouter);
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

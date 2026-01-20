@@ -1,44 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
-import { useMenu } from '../../context/MenuContext';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
+import React, { useState, useEffect } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import { useMenu } from "../../context/MenuContext";
 
 function Products() {
   // Get menu data from context
   const { menuItems, loading, error, fetchMenuItems } = useMenu();
-  
+
   // URL search params for category filtering
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
-  
+
   // State management
   const [selectedCategory, setSelectedCategory] = useState(
-    searchParams.get('category') || 'All'
+    searchParams.get("category") || "All",
   );
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
 
   // Available categories
-  const categories = ['All', 'Breakfast', 'Main Dishes', 'Drinks', 'Desserts'];
+  const categories = ["All", "Breakfast", "Main Dishes", "Drinks", "Desserts"];
 
   // Category mapping for URL params
   const categoryMap = {
-    breakfast: 'Breakfast',
-    'main-dishes': 'Main Dishes',
-    drinks: 'Drinks',
-    desserts: 'Desserts',
+    breakfast: "Breakfast",
+    "main-dishes": "Main Dishes",
+    drinks: "Drinks",
+    desserts: "Desserts",
   };
 
   // Sync with URL params on mount or URL change
   useEffect(() => {
-    const categoryParam = searchParams.get('category');
+    const categoryParam = searchParams.get("category");
     if (categoryParam) {
       const mappedCategory = categoryMap[categoryParam] || categoryParam;
       setSelectedCategory(mappedCategory);
-      fetchMenuItems(mappedCategory === 'All' ? null : mappedCategory);
+      fetchMenuItems(mappedCategory === "All" ? null : mappedCategory);
     } else {
-      setSelectedCategory('All');
+      setSelectedCategory("All");
       fetchMenuItems(null);
     }
   }, [searchParams]);
@@ -48,12 +46,12 @@ function Products() {
     setSelectedCategory(category);
     setCurrentPage(1);
 
-    if (category === 'All') {
+    if (category === "All") {
       fetchMenuItems(null);
       setSearchParams({});
     } else {
       fetchMenuItems(category);
-      setSearchParams({ category: category.toLowerCase().replace(' ', '-') });
+      setSearchParams({ category: category.toLowerCase().replace(" ", "-") });
     }
   };
 
@@ -61,19 +59,21 @@ function Products() {
   const safeMenuItems = Array.isArray(menuItems) ? menuItems : [];
   const totalPages = Math.ceil(safeMenuItems.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentItems = safeMenuItems.slice(startIndex, startIndex + itemsPerPage);
+  const currentItems = safeMenuItems.slice(
+    startIndex,
+    startIndex + itemsPerPage,
+  );
 
   // Navigate to page
   const goToPage = (page) => {
     setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   // Loading state
   if (loading) {
     return (
       <div className="min-h-screen flex flex-col bg-gray-50">
-        <Navbar />
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
             <div className="inline-block animate-spin rounded-full h-16 w-16 border-4 border-[#AD343E] border-t-transparent mb-4"></div>
@@ -82,7 +82,7 @@ function Products() {
             </p>
           </div>
         </div>
-        <Footer />
+     
       </div>
     );
   }
@@ -91,7 +91,6 @@ function Products() {
   if (error) {
     return (
       <div className="min-h-screen flex flex-col bg-gray-50">
-        <Navbar />
         <div className="flex-1 flex items-center justify-center px-4">
           <div className="text-center max-w-md">
             <div className="text-6xl mb-4">⚠️</div>
@@ -112,7 +111,6 @@ function Products() {
             </button>
           </div>
         </div>
-        <Footer />
       </div>
     );
   }
@@ -120,8 +118,6 @@ function Products() {
   // Main render
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      <Navbar />
-
       {/* Inline styles for custom animations matching landing page */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Oswald:wght@300;400;500;600;700&display=swap');
@@ -153,7 +149,6 @@ function Products() {
 
       <main className="flex-1 py-16 md:py-20 px-4 md:px-12">
         <div className="max-w-7xl mx-auto">
-          
           {/* Header Section */}
           <div className="text-center mb-12 md:mb-16">
             <h1 className="font-['Oswald',_sans-serif] text-4xl md:text-5xl font-medium text-gray-900 mb-4 tracking-wide">
@@ -173,8 +168,8 @@ function Products() {
                 onClick={() => handleCategoryChange(category)}
                 className={`category-btn px-6 md:px-8 py-2.5 md:py-3 rounded-full font-['Oswald',_sans-serif] text-sm md:text-base font-medium tracking-wide border ${
                   selectedCategory === category
-                    ? 'bg-[#AD343E] text-white border-[#AD343E] shadow-md'
-                    : 'bg-white text-gray-700 border-gray-200 hover:border-[#AD343E] hover:text-[#AD343E]'
+                    ? "bg-[#AD343E] text-white border-[#AD343E] shadow-md"
+                    : "bg-white text-gray-700 border-gray-200 hover:border-[#AD343E] hover:text-[#AD343E]"
                 }`}
               >
                 {category}
@@ -190,7 +185,7 @@ function Products() {
                 No Menu Items Found
               </h3>
               <p className="font-['DM_Sans',_sans-serif] text-gray-500 text-sm">
-               data isnt fetched 
+                data isnt fetched
               </p>
             </div>
           ) : currentItems.length === 0 ? (
@@ -220,7 +215,8 @@ function Products() {
                         alt={item.name}
                         className="product-image w-full h-full object-cover"
                         onError={(e) => {
-                          e.target.src = 'https://via.placeholder.com/400x300?text=No+Image';
+                          e.target.src =
+                            "https://via.placeholder.com/400x300?text=No+Image";
                         }}
                       />
                     </div>
@@ -229,7 +225,7 @@ function Products() {
                     <div className="p-4 md:p-5 text-center">
                       {/* Price */}
                       <p className="font-['Oswald',_sans-serif] text-[#AD343E] font-semibold text-xl md:text-2xl mb-2">
-                        $ {item.price?.toFixed(2) || '0.00'}
+                        $ {item.price?.toFixed(2) || "0.00"}
                       </p>
 
                       {/* Name */}
@@ -239,7 +235,8 @@ function Products() {
 
                       {/* Description */}
                       <p className="font-['DM_Sans',_sans-serif] text-gray-600 text-sm leading-relaxed line-clamp-2">
-                        {item.description || 'Made with eggs, lettuce, salt, oil and other ingredients.'}
+                        {item.description ||
+                          "Made with eggs, lettuce, salt, oil and other ingredients."}
                       </p>
                     </div>
                   </div>
@@ -255,8 +252,8 @@ function Products() {
                     disabled={currentPage === 1}
                     className={`px-4 py-2 rounded-full border font-['Oswald',_sans-serif] text-sm transition-all ${
                       currentPage === 1
-                        ? 'border-gray-200 text-gray-300 cursor-not-allowed'
-                        : 'border-gray-200 text-gray-700 hover:border-[#AD343E] hover:text-[#AD343E]'
+                        ? "border-gray-200 text-gray-300 cursor-not-allowed"
+                        : "border-gray-200 text-gray-700 hover:border-[#AD343E] hover:text-[#AD343E]"
                     }`}
                   >
                     Previous
@@ -276,8 +273,8 @@ function Products() {
                           onClick={() => goToPage(page)}
                           className={`w-10 h-10 rounded-full font-['Oswald',_sans-serif] text-sm transition-all ${
                             currentPage === page
-                              ? 'bg-[#AD343E] text-white shadow-md'
-                              : 'bg-white border border-gray-200 text-gray-700 hover:border-[#AD343E] hover:text-[#AD343E]'
+                              ? "bg-[#AD343E] text-white shadow-md"
+                              : "bg-white border border-gray-200 text-gray-700 hover:border-[#AD343E] hover:text-[#AD343E]"
                           }`}
                         >
                           {page}
@@ -302,8 +299,8 @@ function Products() {
                     disabled={currentPage === totalPages}
                     className={`px-4 py-2 rounded-full border font-['Oswald',_sans-serif] text-sm transition-all ${
                       currentPage === totalPages
-                        ? 'border-gray-200 text-gray-300 cursor-not-allowed'
-                        : 'border-gray-200 text-gray-700 hover:border-[#AD343E] hover:text-[#AD343E]'
+                        ? "border-gray-200 text-gray-300 cursor-not-allowed"
+                        : "border-gray-200 text-gray-700 hover:border-[#AD343E] hover:text-[#AD343E]"
                     }`}
                   >
                     Next
@@ -328,7 +325,9 @@ function Products() {
                 through apps
               </h2>
               <p className="font-['DM_Sans',_sans-serif] text-gray-600 text-sm md:text-base max-w-xs">
-                Enjoy our menu wherever you are. Order easily through trusted delivery platforms and get your favorites delivered straight to your door.
+                Enjoy our menu wherever you are. Order easily through trusted
+                delivery platforms and get your favorites delivered straight to
+                your door.
               </p>
             </div>
 
@@ -336,42 +335,58 @@ function Products() {
             <div className="grid grid-cols-3 gap-4 md:gap-6">
               {/* Row 1 */}
               <div className="bg-white border border-gray-200 rounded-xl px-6 py-4 flex items-center justify-center hover:shadow-md transition-shadow">
-                <span className="font-['Oswald',_sans-serif] text-lg font-medium">Uber <span className="text-[#06C167]">Eats</span></span>
+                <span className="font-['Oswald',_sans-serif] text-lg font-medium">
+                  Uber <span className="text-[#06C167]">Eats</span>
+                </span>
               </div>
               <div className="bg-white border border-gray-200 rounded-xl px-6 py-4 flex items-center justify-center hover:shadow-md transition-shadow">
-                <span className="font-['Oswald',_sans-serif] text-lg font-bold text-[#FF8000]">GRUBHUB</span>
+                <span className="font-['Oswald',_sans-serif] text-lg font-bold text-[#FF8000]">
+                  GRUBHUB
+                </span>
               </div>
               <div className="bg-white border border-gray-200 rounded-xl px-6 py-4 flex items-center justify-center hover:shadow-md transition-shadow">
-                <span className="font-['Oswald',_sans-serif] text-lg font-medium">Postmates</span>
+                <span className="font-['Oswald',_sans-serif] text-lg font-medium">
+                  Postmates
+                </span>
               </div>
 
               {/* Row 2 */}
               <div className="bg-white border border-gray-200 rounded-xl px-6 py-4 flex items-center justify-center hover:shadow-md transition-shadow">
-                <span className="font-['Oswald',_sans-serif] text-lg font-medium text-[#FF3008]">DOORDASH</span>
+                <span className="font-['Oswald',_sans-serif] text-lg font-medium text-[#FF3008]">
+                  DOORDASH
+                </span>
               </div>
               <div className="bg-white border border-gray-200 rounded-xl px-6 py-4 flex items-center justify-center hover:shadow-md transition-shadow">
-                <span className="font-['Oswald',_sans-serif] text-lg font-medium text-[#E21B70]">foodpanda</span>
+                <span className="font-['Oswald',_sans-serif] text-lg font-medium text-[#E21B70]">
+                  foodpanda
+                </span>
               </div>
               <div className="bg-white border border-gray-200 rounded-xl px-6 py-4 flex items-center justify-center hover:shadow-md transition-shadow">
-                <span className="font-['Oswald',_sans-serif] text-lg font-medium text-[#00CCBC]">deliveroo</span>
+                <span className="font-['Oswald',_sans-serif] text-lg font-medium text-[#00CCBC]">
+                  deliveroo
+                </span>
               </div>
 
               {/* Row 3 */}
               <div className="bg-white border border-gray-200 rounded-xl px-6 py-4 flex items-center justify-center hover:shadow-md transition-shadow">
-                <span className="font-['Oswald',_sans-serif] text-lg font-medium text-[#43B02A]">instacart</span>
+                <span className="font-['Oswald',_sans-serif] text-lg font-medium text-[#43B02A]">
+                  instacart
+                </span>
               </div>
               <div className="bg-white border border-gray-200 rounded-xl px-6 py-4 flex items-center justify-center hover:shadow-md transition-shadow">
-                <span className="font-['Oswald',_sans-serif] text-lg font-bold text-[#FF1A00]">JUST EAT</span>
+                <span className="font-['Oswald',_sans-serif] text-lg font-bold text-[#FF1A00]">
+                  JUST EAT
+                </span>
               </div>
               <div className="bg-white border border-gray-200 rounded-xl px-6 py-4 flex items-center justify-center hover:shadow-md transition-shadow">
-                <span className="font-['Oswald',_sans-serif] text-lg font-medium text-[#FF6600]">DiDi Food</span>
+                <span className="font-['Oswald',_sans-serif] text-lg font-medium text-[#FF6600]">
+                  DiDi Food
+                </span>
               </div>
             </div>
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 }
