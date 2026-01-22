@@ -1,10 +1,10 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Coffee, Utensils, Wine, Cookie } from 'lucide-react';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { Coffee, Utensils, Wine, Cookie } from "lucide-react";
 
 function Menu() {
   const navigate = useNavigate();
-  
+
   const handleExploreMenu = (category) => {
     navigate(`/menu?category=${category}`);
   };
@@ -12,34 +12,33 @@ function Menu() {
   const menuItems = [
     {
       icon: Coffee,
-      title: 'Breakfast',
+      title: "Breakfast",
       description:
-        'Start your day with freshly prepared breakfast options made to energize your mornings.',
-      category: 'breakfast',
+        "Start your day with freshly prepared breakfast options made to energize your mornings.",
+      category: "breakfast",
     },
     {
       icon: Utensils,
-      title: 'Main Dishes',
+      title: "Main Dishes",
       description:
-        'Carefully crafted main courses featuring bold flavors and premium ingredients.',
-      category: 'main-dishes',
+        "Carefully crafted main courses featuring bold flavors and premium ingredients.",
+      category: "main-dishes",
     },
     {
       icon: Wine,
-      title: 'Drinks',
+      title: "Drinks",
       description:
-        'Refreshing beverages and signature drinks perfectly paired with every meal.',
-      category: 'drinks',
+        "Refreshing beverages and signature drinks perfectly paired with every meal.",
+      category: "drinks",
     },
     {
       icon: Cookie,
-      title: 'Desserts',
+      title: "Desserts",
       description:
-        'Indulgent desserts created to satisfy your sweet cravings and end meals perfectly.',
-      category: 'desserts',
+        "Indulgent desserts created to satisfy your sweet cravings and end meals perfectly.",
+      category: "desserts",
     },
-  ]
-  
+  ];
 
   return (
     <div className="w-full bg-gray-50 font-['Oswald',_system-ui,_sans-serif]">
@@ -103,7 +102,10 @@ function Menu() {
       `}</style>
 
       <section className="py-20 px-4 md:px-12">
-        <h2 className="oswald text-center text-4xl md:text-5xl font-medium text-gray-900 mb-16 tracking-wide">
+        <h2
+          className="oswald text-center text-4xl md:text-5xl font-medium text-gray-900 mb-16 tracking-wide"
+          data-aos="fade-down"
+        >
           Browse Our Menu
         </h2>
 
@@ -114,19 +116,24 @@ function Menu() {
               <div
                 key={index}
                 className="menu-card border border-gray-200 rounded-xl px-8 py-10 text-center bg-white shadow-sm cursor-pointer"
+                data-aos="fade-up"
+                data-aos-delay={index * 100}
               >
                 <div className="icon-circle w-24 h-24 mx-auto mb-6 rounded-full bg-gray-100 flex items-center justify-center">
-                  <IconComponent className="w-10 h-10 text-gray-700" strokeWidth={1.5} />
+                  <IconComponent
+                    className="w-10 h-10 text-gray-700"
+                    strokeWidth={1.5}
+                  />
                 </div>
-                
+
                 <h3 className="oswald text-xl font-medium text-gray-900 mb-4 tracking-wide">
                   {item.title}
                 </h3>
-                
+
                 <p className="dm-sans text-gray-600 text-sm leading-relaxed mb-6">
                   {item.description}
                 </p>
-                
+
                 <button
                   onClick={() => handleExploreMenu(item.category)}
                   className="explore-btn oswald text-red-700 text-sm font-medium tracking-widest uppercase"

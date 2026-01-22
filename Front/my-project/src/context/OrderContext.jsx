@@ -5,7 +5,7 @@ import React, {
   useCallback,
   useEffect,
 } from "react";
-import { orderService } from "../services/api";
+import axios from "axios";
 import toast from "react-hot-toast";
 
 const OrderContext = createContext();
@@ -31,8 +31,13 @@ export const OrderProvider = ({ children }) => {
 
     try {
       setLoading(true);
-      const data = await orderService.getMyOrders();
-      setOrders(data.orders || []);
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/orders/my-orders`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
+      setOrders(response.data.orders || []);
     } catch (error) {
       console.error("Error fetching orders:", error);
       // toast.error('Failed to load orders');

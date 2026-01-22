@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-import { orderService } from "../services/api";
+import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { useEffect } from "react";
 
@@ -49,6 +49,13 @@ function CheckoutPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      toast.error("Please login to place an order");
+      return;
+    }
+
     if (!paymentMethod) {
       toast.error("Please select a payment method");
       return;
@@ -78,15 +85,28 @@ function CheckoutPage() {
       };
 
       // 1. Create Order
-      const { order } = await orderService.createOrder(orderPayload);
+      const orderResponse = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/orders`,
+        orderPayload,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
+      const { order } = orderResponse.data;
 
       // 2. Handle Payment Flow
       if (paymentMethod === "stripe") {
-        const session = await orderService.createStripeSession({
-          orderId: order._id,
-          items: orderItems,
-        });
-        window.location.href = session.url;
+        const sessionResponse = await axios.post(
+          `${import.meta.env.VITE_API_URL}/api/stripe/create-checkout-session`,
+          {
+            orderId: order._id,
+            items: orderItems,
+          },
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          },
+        );
+        window.location.href = sessionResponse.data.url;
       } else {
         toast.success("Order placed successfully!");
         navigate("/orders");
@@ -132,11 +152,18 @@ function CheckoutPage() {
           </h1>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div
+          className="grid grid-cols-1 lg:grid-cols-12 gap-12"
+          data-aos="zoom-in"
+        >
           {/* Left Column: Form & Payment */}
           <div className="lg:col-span-7 space-y-8">
             {/* Delivery Details Section */}
-            <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100">
+            <div
+              className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100"
+              data-aos="fade-right"
+              data-aos-delay="200"
+            >
               <h2 className="font-['Oswald',_sans-serif] text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
                 <MapPin className="w-5 h-5 text-[#AD343E]" />
                 Delivery Details
@@ -212,7 +239,11 @@ function CheckoutPage() {
             </div>
 
             {/* Payment Method Section */}
-            <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100">
+            <div
+              className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100"
+              data-aos="fade-right"
+              data-aos-delay="400"
+            >
               <h2 className="font-['Oswald',_sans-serif] text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
                 <Wallet className="w-5 h-5 text-[#AD343E]" />
                 Payment Method

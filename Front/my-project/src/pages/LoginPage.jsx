@@ -74,7 +74,11 @@ function LoginPage() {
 
       {/* Right Side - Login Form */}
       <div className="w-full md:w-1/2 flex flex-col items-center justify-center p-8">
-        <form onSubmit={handleSubmit} className="w-full max-w-md flex flex-col">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-md flex flex-col"
+          data-aos="zoom-in"
+        >
           {/* Header */}
           <h2 className="font-['Oswald',_sans-serif] text-4xl text-gray-900 font-medium">
             Sign in

@@ -82,7 +82,6 @@ function Products() {
             </p>
           </div>
         </div>
-     
       </div>
     );
   }
@@ -151,7 +150,10 @@ function Products() {
         <div className="max-w-7xl mx-auto">
           {/* Header Section */}
           <div className="text-center mb-12 md:mb-16">
-            <h1 className="font-['Oswald',_sans-serif] text-4xl md:text-5xl font-medium text-gray-900 mb-4 tracking-wide">
+            <h1
+              className="font-['Oswald',_sans-serif] text-4xl md:text-5xl font-medium text-gray-900 mb-4 tracking-wide"
+              data-aos="fade-down"
+            >
               Our <span className="text-[#AD343E] font-bold">Menu</span>
             </h1>
             <p className="font-['DM_Sans',_sans-serif] text-gray-600 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
@@ -207,6 +209,7 @@ function Products() {
                     key={item._id}
                     onClick={() => navigate(`/menu/${item._id}`)}
                     className="product-card bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-xl cursor-pointer"
+                    data-aos="fade-up"
                   >
                     {/* Product Image */}
                     <div className="h-40 md:h-44 overflow-hidden bg-gray-100">

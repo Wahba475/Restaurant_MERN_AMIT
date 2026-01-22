@@ -1,33 +1,33 @@
 const cardsData = [
   {
     image:
-      'https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200',
-    name: 'Briar Martin',
-    handle: '@neilstellar',
-    date: 'April 20, 2025',
+      "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200",
+    name: "Briar Martin",
+    handle: "@neilstellar",
+    date: "April 20, 2025",
   },
   {
     image:
-      'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200',
-    name: 'Avery Johnson',
-    handle: '@averywrites',
-    date: 'May 10, 2025',
+      "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200",
+    name: "Avery Johnson",
+    handle: "@averywrites",
+    date: "May 10, 2025",
   },
   {
     image:
-      'https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=200&auto=format&fit=crop&q=60',
-    name: 'Jordan Lee',
-    handle: '@jordantalks',
-    date: 'June 5, 2025',
+      "https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=200&auto=format&fit=crop&q=60",
+    name: "Jordan Lee",
+    handle: "@jordantalks",
+    date: "June 5, 2025",
   },
   {
     image:
-      'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=200&auto=format&fit=crop&q=60',
-    name: 'Avery Johnson',
-    handle: '@averywrites',
-    date: 'May 10, 2025',
+      "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=200&auto=format&fit=crop&q=60",
+    name: "Avery Johnson",
+    handle: "@averywrites",
+    date: "May 10, 2025",
   },
-]
+];
 
 const CreateCard = ({ card }) => (
   <div className="p-4 rounded-2xl mx-4 shadow-sm hover:shadow-lg bg-white border border-[#DBDFD0] transition-all duration-300 w-72 shrink-0 hover:-translate-y-1 font-['Oswald',_system-ui,_sans-serif] ">
@@ -90,16 +90,23 @@ const CreateCard = ({ card }) => (
       <p>{card.date}</p>
     </div>
   </div>
-)
+);
 
 const Testimonials = () => {
   return (
     <section className="py-20 px-4 md:px-12 bg-[#F9F9F7] font-['Oswald',_system-ui,_sans-serif] ">
       <div className="max-w-5xl mx-auto">
-        <h2 className="font-['Oswald',_system-ui,_sans-serif] text-center text-3xl md:text-4xl font-semibold text-[#2C2F24] tracking-[0.18em] uppercase">
+        <h2
+          className="font-['Oswald',_system-ui,_sans-serif] text-center text-3xl md:text-4xl font-semibold text-[#2C2F24] tracking-[0.18em] uppercase"
+          data-aos="fade-down"
+        >
           Guest Stories
         </h2>
-        <p className="mt-4 text-center text-sm md:text-base text-gray-600">
+        <p
+          className="mt-4 text-center text-sm md:text-base text-gray-600"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
           What our guests say about dining at Wahba.
         </p>
         <style>{`
@@ -114,7 +121,11 @@ const Testimonials = () => {
             animation-direction: reverse;
           }
         `}</style>
-        <div className="mt-10 space-y-6">
+        <div
+          className="mt-10 space-y-6"
+          data-aos="fade-up"
+          data-aos-delay="400"
+        >
           <div className="marquee-row w-full mx-auto overflow-hidden relative">
             <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none bg-gradient-to-r from-[#F9F9F7] to-transparent" />
             <div className="marquee-inner flex transform-gpu min-w-[200%] pt-6 pb-3">
@@ -136,9 +147,7 @@ const Testimonials = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Testimonials
-
-
+export default Testimonials;

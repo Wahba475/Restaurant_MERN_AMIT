@@ -10,7 +10,10 @@ function AboutPage() {
           alt="Restaurant"
           className="w-full h-full object-cover opacity-60"
         />
-        <div className="absolute inset-0 flex items-center justify-center">
+        <div
+          className="absolute inset-0 flex items-center justify-center"
+          data-aos="fade-down"
+        >
           <div className="text-center text-white">
             <h1 className="font-['Oswald',_sans-serif] text-5xl md:text-6xl font-bold mb-4">
               About <span className="text-[#AD343E]">Us</span>
@@ -26,7 +29,7 @@ function AboutPage() {
       <section className="py-16 md:py-20 px-4 md:px-12 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div>
+            <div data-aos="fade-right">
               <h2 className="font-['Oswald',_sans-serif] text-3xl md:text-4xl font-bold text-gray-900 mb-6">
                 Our Story
               </h2>
@@ -48,7 +51,10 @@ function AboutPage() {
                 love.
               </p>
             </div>
-            <div className="h-[400px] rounded-2xl overflow-hidden">
+            <div
+              className="h-[400px] rounded-2xl overflow-hidden"
+              data-aos="fade-left"
+            >
               <img
                 src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80"
                 alt="Our Kitchen"
@@ -62,12 +68,19 @@ function AboutPage() {
       {/* Values Section */}
       <section className="py-16 md:py-20 px-4 md:px-12 bg-gray-50">
         <div className="max-w-6xl mx-auto">
-          <h2 className="font-['Oswald',_sans-serif] text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">
+          <h2
+            className="font-['Oswald',_sans-serif] text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center"
+            data-aos="fade-down"
+          >
             Our Values
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Quality */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+            <div
+              className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow"
+              data-aos="fade-up"
+              data-aos-delay="0"
+            >
               <div className="w-16 h-16 bg-[#AD343E] rounded-full flex items-center justify-center mb-6">
                 <svg
                   className="w-8 h-8 text-white"
@@ -93,7 +106,11 @@ function AboutPage() {
             </div>
 
             {/* Passion */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+            <div
+              className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
               <div className="w-16 h-16 bg-[#AD343E] rounded-full flex items-center justify-center mb-6">
                 <svg
                   className="w-8 h-8 text-white"
@@ -119,7 +136,11 @@ function AboutPage() {
             </div>
 
             {/* Community */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+            <div
+              className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow"
+              data-aos="fade-up"
+              data-aos-delay="400"
+            >
               <div className="w-16 h-16 bg-[#AD343E] rounded-full flex items-center justify-center mb-6">
                 <svg
                   className="w-8 h-8 text-white"
@@ -150,16 +171,22 @@ function AboutPage() {
       {/* Team Section */}
       <section className="py-16 md:py-20 px-4 md:px-12 bg-white">
         <div className="max-w-6xl mx-auto">
-          <h2 className="font-['Oswald',_sans-serif] text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-center">
+          <h2
+            className="font-['Oswald',_sans-serif] text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-center"
+            data-aos="fade-down"
+          >
             Meet Our Team
           </h2>
-          <p className="font-['DM_Sans',_sans-serif] text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+          <p
+            className="font-['DM_Sans',_sans-serif] text-gray-600 text-center mb-12 max-w-2xl mx-auto"
+            data-aos="fade-up"
+          >
             Our talented team of chefs and staff work together to create
             memorable dining experiences
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Chef 1 */}
-            <div className="text-center">
+            <div className="text-center" data-aos="fade-up" data-aos-delay="0">
               <div className="w-48 h-48 mx-auto rounded-full overflow-hidden mb-4 bg-gray-200">
                 <img
                   src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=400&q=80"
@@ -179,7 +206,11 @@ function AboutPage() {
             </div>
 
             {/* Chef 2 */}
-            <div className="text-center">
+            <div
+              className="text-center"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
               <div className="w-48 h-48 mx-auto rounded-full overflow-hidden mb-4 bg-gray-200">
                 <img
                   src="https://images.unsplash.com/photo-1583394293214-28ded15ee548?w=400&q=80"
@@ -199,7 +230,11 @@ function AboutPage() {
             </div>
 
             {/* Manager */}
-            <div className="text-center">
+            <div
+              className="text-center"
+              data-aos="fade-up"
+              data-aos-delay="400"
+            >
               <div className="w-48 h-48 mx-auto rounded-full overflow-hidden mb-4 bg-gray-200">
                 <img
                   src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80"

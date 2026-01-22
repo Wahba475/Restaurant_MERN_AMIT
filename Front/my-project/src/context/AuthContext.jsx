@@ -13,7 +13,7 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
-  const [user, setUser] = useState(null); // Can be expanded if user data is stored
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     // Initial check

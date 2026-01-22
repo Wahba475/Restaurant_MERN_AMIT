@@ -4,7 +4,10 @@ function Layer() {
   return (
     <section className="py-20 px-4 md:px-12 bg-white">
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div className="grid grid-cols-2 grid-rows-2 gap-6">
+        <div
+          className="grid grid-cols-2 grid-rows-2 gap-6"
+          data-aos="fade-right"
+        >
           <img
             src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092"
             alt="Chef cooking"
@@ -24,7 +27,7 @@ function Layer() {
           />
         </div>
 
-        <div>
+        <div data-aos="fade-left">
           <h2 className="font-['Oswald',_system-ui,_sans-serif] text-3xl md:text-4xl font-semibold text-[#2C2F24] mb-4 leading-tight">
             Experience The Best
             <span className="block text-[#AD343E]">Flavours In The City</span>

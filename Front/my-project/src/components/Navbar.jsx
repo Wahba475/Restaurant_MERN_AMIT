@@ -16,7 +16,12 @@ function Navbar() {
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },
     { label: "Menu", href: "/menu" },
-    ...(isLoggedIn ? [{ label: "My Orders", href: "/orders" }] : []),
+    ...(isLoggedIn
+      ? [
+          { label: "My Orders", href: "/orders" },
+          { label: "My Bookings", href: "/my-bookings" },
+        ]
+      : []),
   ];
 
   const handleAuthClick = () => {
@@ -30,7 +35,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="flex items-center px-12 py-5 bg-white border-b border-gray-100">
+    <nav className="flex items-center px-12 py-5 bg-white border-b border-gray-100 font-['Oswald',_sans-serif]">
       {/* LEFT — Logo */}
       <div className="flex-1 flex items-center">
         <Link to="/" className="group flex items-center">
@@ -127,7 +132,10 @@ function Navbar() {
         )}
 
         {/* Book Table */}
-        <button className="border-2 border-[#182226] text-[#182226] px-5 py-2 rounded-full font-bold transition-all hover:bg-[#182226] hover:text-white hover:-translate-y-1">
+        <button
+          onClick={() => navigate("/book-table")}
+          className="border-2 border-[#182226] text-[#182226] px-5 py-2 rounded-full font-bold transition-all hover:bg-[#182226] hover:text-white hover:-translate-y-1"
+        >
           Book A Table
         </button>
 
